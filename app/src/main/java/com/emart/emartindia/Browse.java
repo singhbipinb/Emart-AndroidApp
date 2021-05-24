@@ -1,6 +1,8 @@
 package com.emart.emartindia;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,14 +27,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Browse extends AppCompatActivity {
+public class Browse extends BaseNavigation {
 
     ArrayList<Products> newlist;
     Gson gson = new Gson();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_browse);
+        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+
+        View view = inflater.inflate(R.layout.activity_browse,null,false);
+
+        frameLayout.addView(view);
 
 
         final ProductInterface apiser = apiClient.getClient().create(ProductInterface.class);

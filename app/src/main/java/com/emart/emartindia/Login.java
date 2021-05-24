@@ -2,6 +2,7 @@ package com.emart.emartindia;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -20,7 +21,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class Login extends AppCompatActivity {
+public class Login extends BaseNavigation {
 
     private Retrofit retrofit;
     Gson gson = new Gson();
@@ -35,7 +36,11 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+
+        View view = inflater.inflate(R.layout.activity_login,null,false);
+
+        frameLayout.addView(view);
 
         email = findViewById(R.id.email);
         pass = findViewById(R.id.password);

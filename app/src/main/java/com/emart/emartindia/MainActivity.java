@@ -3,6 +3,7 @@ package com.emart.emartindia;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
@@ -39,7 +40,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseNavigation {
 
     private Retrofit retrofit;
     Gson gson = new Gson();
@@ -53,7 +54,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+
+        View view = inflater.inflate(R.layout.activity_main,null,false);
+
+        frameLayout.addView(view);
 
         email = findViewById(R.id.editTextTextEmailAddress);
         pass = findViewById(R.id.editTextTextPassword);
@@ -134,8 +139,9 @@ public class MainActivity extends AppCompatActivity {
 
 //showData();
 
-        Intent intent = new Intent(this, Login.class);
+        Intent intent = new Intent(this, Cart.class);
         startActivity(intent);
+        overridePendingTransition(R.transition.fadein,R.transition.fadeout);
 
     }
 }

@@ -27,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderDetails extends AppCompatActivity {
+public class OrderDetails extends BaseNavigation {
 
     String orderid;
 
@@ -36,7 +36,11 @@ public class OrderDetails extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_details);
+        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+
+        View view = inflater.inflate(R.layout.activity_order_details,null,false);
+
+        frameLayout.addView(view);
 
 
         name = findViewById(R.id.shippingname);

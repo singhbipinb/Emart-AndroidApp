@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EMartIndia"
         android:usesCleartextTraffic="true">
-        <activity android:name=".OrderDetails"></activity>
+        <activity android:name=".BaseNavigation"></activity>
+        <activity android:name=".CheckoutSteps" />
+        <activity android:name=".Cart" />
+        <activity android:name=".OrderDetails" />
         <activity android:name=".MyOrders" />
         <activity
             android:name=".Login"

@@ -9,4 +9,14 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="categoty">All Categories</string>
+    <string name="myorders">My Orders</string>
+    <string name="mycart">My Cart</string>
+    <string name="myprofile">My Profile</string>
+    <string name="logoutstr">Log Out</string>
+    <string name="opennavigation">Open Navigation Drawer</string>
+    <string name="closenavigation">Close Navigation Drawer</string>
+    <string name="home">Home</string>
+
+
 </resources>

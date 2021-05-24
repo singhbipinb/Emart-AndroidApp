@@ -3,6 +3,8 @@ package com.emart.emartindia;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,14 +28,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductDetail extends AppCompatActivity {
+public class ProductDetail extends BaseNavigation {
 
     ImageView imageView;
     TextView name,price,description;
+    String productid, AddQuery, ExecuteQuery;
+    SQLiteDatabase mydb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_detail);
+        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+
+        View view = inflater.inflate(R.layout.activity_product_detail,null,false);
+
+        frameLayout.addView(view);
 
 
         imageView= findViewById(R.id.imageView);
@@ -41,10 +49,12 @@ public class ProductDetail extends AppCompatActivity {
         price = findViewById(R.id.textView2);
         description = findViewById(R.id.descriptionTV);
 
+        mydb = openOrCreateDatabase("cartdb",MODE_PRIVATE,null);
+
 
         Intent intent = getIntent();
 
-        String productid = intent.getExtras().getString("productid");
+        productid = intent.getExtras().getString("productid");
 
 
         final ProductInterface apiser = apiClient.getClient().create(ProductInterface.class);
@@ -116,6 +126,11 @@ public class ProductDetail extends AppCompatActivity {
                     reviLi.addView(view);
                 }
 
+                AddQuery = "insert into MyCart values('"+productid+"','"+response.body().getName()+"','" +
+                        response.body().getImage()+"',"+response.body().getPrice()+","+
+                        response.body().getCountInStock()+","+1+")";
+
+
             }
 
             @Override
@@ -123,6 +138,48 @@ public class ProductDetail extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    public void AddtoCart(View view) {
+
+        mydb.execSQL("create table if not exists MyCart(itemid varchar primary key,name varchar, image varchar, price double," +
+                "countinstock integer, qty integer)");
+
+        Cursor resultset = mydb.rawQuery("select * from MyCart where itemid='"+productid+"'",null);
+
+        if(resultset.moveToFirst()){
+            System.out.println("rubjksjjbdks"+resultset.getInt(4));
+
+            System.out.println();
+          int prevqty = resultset.getInt(5)+1;
+
+          String updatequery = "update MyCart set qty="+prevqty+" where itemid='"+productid+"'";
+
+    mydb.execSQL(updatequery);
+
+        }
+        else {
+
+            mydb.execSQL(AddQuery);
+
+
+
+        }
+
+        Cursor result = mydb.rawQuery("select * from MyCart",null);
+
+        if(result.moveToFirst()){
+
+            do{
+                System.out.println(""+result.getString(0)+" "+result.getString(1)+" "+result.getString(2)+" "
+                        +result.getDouble(3)+" "+result.getInt(4)+" "+result.getInt(5)+" ");
+            }
+            while (result.moveToNext());
+
+        }
+
+
 
     }
 }
