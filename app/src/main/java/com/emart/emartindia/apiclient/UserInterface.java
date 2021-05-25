@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -29,9 +30,9 @@ Call<Users> GetOneUser (@Path("pid") String user);
     @POST("/api/users/")
     Call<Users> CreateUser (@Body Users user);
 
-    @PUT("/api/users/{uid}")
+    @PUT("/api/users/profile")
 
-    Call<Users> UpdateUser (@Path("pid") String user);
+    Call<Users> UpdateUser (@Header("Authorization") String authHeader,@Body Users user);
 
     @DELETE("/api/users/{uid}")
 

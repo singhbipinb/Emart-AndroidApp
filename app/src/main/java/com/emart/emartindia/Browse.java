@@ -34,6 +34,7 @@ public class Browse extends BaseNavigation {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.transition.fadein, R.transition.fadeout);
         LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
 
         View view = inflater.inflate(R.layout.activity_browse,null,false);

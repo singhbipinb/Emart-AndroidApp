@@ -12,6 +12,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/navheaderalready"
             android:orientation="vertical">
 
             <TextView
@@ -19,6 +20,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginStart="24dp"
+                android:id="@+id/navheadername"
                 android:layout_marginEnd="24dp"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:text="Full Name" />
@@ -28,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 android:layout_marginStart="24dp"
+                android:id="@+id/navheaderemail"
                 android:layout_marginEnd="24dp"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textColor="@color/material_on_surface_emphasis_medium"
@@ -40,12 +43,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/navheaderlogin"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_centerInParent="true">
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/navtologin"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
                 android:text="Login"/>
 
         </LinearLayout>

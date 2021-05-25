@@ -1,5 +1,6 @@
 package com.emart.emartindia;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -36,6 +37,7 @@ public class Login extends BaseNavigation {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.transition.fadein, R.transition.fadeout);
         LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
 
         View view = inflater.inflate(R.layout.activity_login,null,false);
@@ -86,8 +88,16 @@ public class Login extends BaseNavigation {
                 SharedPreferences.Editor myEditor = LoginToken.edit();
 
                 myEditor.putString("authtoken",response.body().getAuthToken());
+                myEditor.putString("authname",response.body().getName());
+                myEditor.putString("authemail",response.body().getEmail());
 
-                myEditor.apply();
+                if(myEditor.commit())
+                {
+                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+//                    loginStatus();
 
                 System.out.println("Authtoken "+response.body().getAuthToken());
 
@@ -120,8 +130,6 @@ public class Login extends BaseNavigation {
         findViewById(R.id.registerpage).setVisibility(View.INVISIBLE);
         loading.setVisibility(View.VISIBLE);
 
-        boolean Result = false;
-
         final UserInterface apicall = apiClient.getClient().create(UserInterface.class);
 
 
@@ -148,8 +156,17 @@ public class Login extends BaseNavigation {
                     SharedPreferences.Editor myEditor = LoginToken.edit();
 
                     myEditor.putString("authtoken",response.body().getAuthToken());
+                    myEditor.putString("authname",response.body().getName());
+                    myEditor.putString("authemail",response.body().getEmail());
+                    myEditor.putString("authid",response.body().getId());
 
-                    myEditor.apply();
+                    if(myEditor.commit())
+                    {
+                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                        startActivity(intent);
+                        finish();
+
+                    }
 
                     System.out.println("Authtoken "+response.body().getEmail());
 
@@ -181,6 +198,10 @@ public class Login extends BaseNavigation {
     public void authUser(View view) {
 
         Login();
+
+
+//        Intent intent = new Intent(this,MainActivity.class);
+//        startActivity(intent);
     }
 
     public void gotoRegister(View view) {
@@ -201,5 +222,13 @@ public class Login extends BaseNavigation {
     public void addUser(View view) {
 
         Register();
+        loginStatus();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.transition.fadein, R.transition.fadeout);
     }
 }

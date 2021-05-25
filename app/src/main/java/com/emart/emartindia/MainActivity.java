@@ -54,6 +54,7 @@ public class MainActivity extends BaseNavigation {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.transition.fadein, R.transition.fadeout);
         LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
 
         View view = inflater.inflate(R.layout.activity_main,null,false);
@@ -64,7 +65,7 @@ public class MainActivity extends BaseNavigation {
         pass = findViewById(R.id.editTextTextPassword);
 
 
-
+//    loginStatus();
 
 
     }
@@ -141,7 +142,7 @@ public class MainActivity extends BaseNavigation {
 
         Intent intent = new Intent(this, Cart.class);
         startActivity(intent);
-        overridePendingTransition(R.transition.fadein,R.transition.fadeout);
+
 
     }
 }
