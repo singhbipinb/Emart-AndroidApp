@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.Arrays;
+
 
 public class Orders {
 
@@ -168,5 +170,24 @@ public class Orders {
 
     public void setCreatedAt(String createdAt) {
         CreatedAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Orders{" +
+                "id='" + id + '\'' +
+                ", User='" + User + '\'' +
+                ", paymentMethod='" + paymentMethod + '\'' +
+                ", taxPrice='" + taxPrice + '\'' +
+                ", shippingPrice='" + shippingPrice + '\'' +
+                ", totalPrice='" + totalPrice + '\'' +
+                ", isPaid='" + isPaid + '\'' +
+                ", paidAt='" + paidAt + '\'' +
+                ", isDelivered=" + isDelivered +
+                ", deliveredAt='" + deliveredAt + '\'' +
+                ", orderItems=" + Arrays.toString(orderItems) +
+                ", shippingAddress=" + shippingAddress +
+                ", CreatedAt='" + CreatedAt + '\'' +
+                '}';
     }
 }

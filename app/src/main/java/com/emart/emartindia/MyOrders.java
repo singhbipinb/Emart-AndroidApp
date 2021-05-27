@@ -22,6 +22,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -60,7 +61,7 @@ getOrders();
 
         System.out.println("Token "+token);
 
-        Call<List<Orders>> call = apiser.GetUsersAll("Bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzM0N2MzMjRjZWM4NWI5YzhjYzhiYyIsImlhdCI6MTYyMTc5MDM4NiwiZXhwIjoxNjI0MzgyMzg2fQ.gi5E-RpIpLSdQWJ8W-rxJ9m2DsC7F3KGRB5eLL72kYE");
+        Call<List<Orders>> call = apiser.GetUsersAll("Bearer "+token);
         call.enqueue(new Callback<List<Orders>>() {
             @Override
             public void onResponse(Call<List<Orders>> call, Response<List<Orders>> response) {
@@ -68,6 +69,7 @@ getOrders();
 
 
                 ArrayList<Orders> list = new ArrayList<>(response.body());
+                Collections.reverse(list);
 
                 System.out.println("Get State"+response.body().toString());
 

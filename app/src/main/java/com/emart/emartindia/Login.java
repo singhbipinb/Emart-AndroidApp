@@ -90,6 +90,7 @@ public class Login extends BaseNavigation {
                 myEditor.putString("authtoken",response.body().getAuthToken());
                 myEditor.putString("authname",response.body().getName());
                 myEditor.putString("authemail",response.body().getEmail());
+                myEditor.putString("authid",response.body().getId());
 
                 if(myEditor.commit())
                 {

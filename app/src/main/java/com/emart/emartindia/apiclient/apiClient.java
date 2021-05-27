@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class apiClient {
 
-    public static String BASE_URL="http://10.0.2.2:5000";
+    public static String BASE_URL="http://ec2-13-127-115-242.ap-south-1.compute.amazonaws.com:5000/";
 
     public static Retrofit retrofit = null;
 

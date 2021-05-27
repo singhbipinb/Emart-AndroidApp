@@ -31,7 +31,7 @@ public class OrderDetails extends BaseNavigation {
 
     String orderid;
 
-    TextView name, email, address, paymentmethod, itemtotal, shipping,tax, totalamount,orderidtv;
+    TextView name, email, address, paymentmethod, itemtotal, shipping,tax, totalamount,orderidtv, mobile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,7 @@ public class OrderDetails extends BaseNavigation {
         tax = findViewById(R.id.odtaxes);
         totalamount = findViewById(R.id.odtotalamount);
         orderidtv = findViewById(R.id.odorderid);
+        mobile = findViewById(R.id.shippingmobile);
 
 
         Intent intent = getIntent();
@@ -79,7 +80,7 @@ public class OrderDetails extends BaseNavigation {
 
         System.out.println("Token "+token);
 
-        Call<OrderDetail> call = apiser.GetOne(orderid,"Bearer "+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzM0N2MzMjRjZWM4NWI5YzhjYzhiYyIsImlhdCI6MTYyMTc5MDM4NiwiZXhwIjoxNjI0MzgyMzg2fQ.gi5E-RpIpLSdQWJ8W-rxJ9m2DsC7F3KGRB5eLL72kYE");
+        Call<OrderDetail> call = apiser.GetOne(orderid,"Bearer "+token);
         call.enqueue(new Callback<OrderDetail>() {
             @Override
             public void onResponse(Call<OrderDetail> call, Response<OrderDetail> response) {
@@ -88,12 +89,14 @@ public class OrderDetails extends BaseNavigation {
                 OrderDetail order = response.body();
 
                 name.setText(""+order.getUser().getName());
+                mobile.setText(""+order.getShippingAddress().get("mobile"));
                 email.setText(""+order.getUser().getEmail());
-                address.setText(""+order.getShippingAddress());
+                address.setText(""+order.getShippingAddress().get("address")+" "+order.getShippingAddress().get("city")
+                +" "+order.getShippingAddress().get("country")+" "+order.getShippingAddress().get("postalCode"));
                 itemtotal.setText(""+order.getTotalPrice());
                 shipping.setText(""+order.getShippingPrice());
-                tax.setText(""+order.getUser().getName());
-                totalamount.setText(""+order.getTaxPrice());
+                tax.setText(""+order.getTaxPrice());
+                totalamount.setText(""+order.getTotalPrice());
                 orderidtv.setText(""+order.getId().toUpperCase());
                 paymentmethod.setText(""+order.getPaymentMethod());
 

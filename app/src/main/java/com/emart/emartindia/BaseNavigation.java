@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -65,6 +66,13 @@ public class BaseNavigation extends AppCompatActivity implements NavigationView.
 
 
 
+
+
+
+
+
+
+
     }
 
     public void loginStatus(){
@@ -72,6 +80,7 @@ public class BaseNavigation extends AppCompatActivity implements NavigationView.
         System.out.println("LoignStatusclas");
 
         View view = navigationView.getHeaderView(0);
+        Menu menu = navigationView.getMenu();
 
         login = view.findViewById(R.id.navheaderlogin);
         loggedin = view.findViewById(R.id.navheaderalready);
@@ -86,6 +95,9 @@ public class BaseNavigation extends AppCompatActivity implements NavigationView.
 
             login.setVisibility(View.VISIBLE);
             loggedin.setVisibility(View.INVISIBLE);
+            MenuItem item = menu.getItem(5);
+
+            item.setVisible(false);
 
         }
         else {
@@ -96,6 +108,7 @@ public class BaseNavigation extends AppCompatActivity implements NavigationView.
             tv2.setText(""+email);
             login.setVisibility(View.INVISIBLE);
             loggedin.setVisibility(View.VISIBLE);
+
 
         }
 
@@ -177,7 +190,7 @@ public class BaseNavigation extends AppCompatActivity implements NavigationView.
                 }
                 else {
                     LogOut();
-                    findViewById(R.id.logout).setVisibility(View.INVISIBLE);
+                    findViewById(R.id.logout).setVisibility(View.GONE);
                 }
                 break;
 
@@ -204,11 +217,14 @@ public class BaseNavigation extends AppCompatActivity implements NavigationView.
 
         SharedPreferences.Editor editor = LoginToken.edit();
 
-        editor.clear().apply();
+        editor.clear();
 
-        drawerLayout.closeDrawer(GravityCompat.START);
+        if(editor.commit()){
+            drawerLayout.closeDrawer(GravityCompat.START);
+            loginStatus();
+        }
 
-        loginStatus();
+
 
 
     }

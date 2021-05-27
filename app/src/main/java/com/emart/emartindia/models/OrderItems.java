@@ -4,19 +4,27 @@ import com.google.gson.annotations.SerializedName;
 
 public class OrderItems {
 
+    @SerializedName("product")
+    String Product;
+
     @SerializedName("name")
     String Name;
 
     @SerializedName("qty")
-    String Quantity;
+    int Quantity;
 
     @SerializedName("image")
     String Image;
 
     @SerializedName("price")
-    String Price;
+    double Price;
 
-    public OrderItems(String name, String quantity, String image, String price) {
+    public OrderItems(){
+
+    }
+
+    public OrderItems(String product, String name, int quantity, String image, double price) {
+        Product = product;
         Name = name;
         Quantity = quantity;
         Image = image;
@@ -31,11 +39,11 @@ public class OrderItems {
         Name = name;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return Quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         Quantity = quantity;
     }
 
@@ -47,11 +55,19 @@ public class OrderItems {
         Image = image;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return Price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         Price = price;
+    }
+
+    public String getProduct() {
+        return Product;
+    }
+
+    public void setProduct(String product) {
+        Product = product;
     }
 }

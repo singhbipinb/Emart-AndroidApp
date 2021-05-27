@@ -6,6 +6,7 @@ import com.emart.emartindia.models.Orders;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -34,7 +35,7 @@ public interface OrderInterface {
     Call<Orders> DeliverOrder (@Path("oid") String orderid);
 
     @POST("/api/orders/")
-    Call<Orders> CreateOrder ();
+    Call<Orders> CreateOrder (@Header("Authorization") String authHeader, @Body OrderDetail order );
 
 
 

@@ -17,6 +17,14 @@
     <string name="opennavigation">Open Navigation Drawer</string>
     <string name="closenavigation">Close Navigation Drawer</string>
     <string name="home">Home</string>
+    <string name="Iphone">iPhone</string>
+    <string name="Iphoneprice">159,999</string>
+    <string name="Canon">Canon</string>
+    <string name="DSLRPrice">59,999</string>
+    <string name="iWatch">iWatch</string>
+    <string name="price3">49,999</string>
+    <string name="Cleaner">Cleaner</string>
+    <string name="prive4">9,999</string>
 
 
 </resources>

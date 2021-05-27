@@ -82,6 +82,13 @@
                     android:text="Name"
                     />
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Contact"
+                        android:id="@+id/shippingmobile"
+                        />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -112,7 +119,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Shipping Details"
+                        android:text="Payment Method"
                         />
                     <View
                         android:layout_width="match_parent"

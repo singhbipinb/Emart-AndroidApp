@@ -3,6 +3,8 @@ package com.emart.emartindia.models;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Arrays;
+
 
 public class OrderDetail {
 
@@ -17,16 +19,16 @@ public class OrderDetail {
     private String paymentMethod;
 
     @SerializedName("taxPrice")
-    private String taxPrice;
+    private double taxPrice;
 
     @SerializedName("shippingPrice")
-    private String shippingPrice;
+    private double shippingPrice;
 
     @SerializedName("totalPrice")
-    private String totalPrice;
+    private double totalPrice;
 
     @SerializedName("isPaid")
-    private String isPaid;
+    private boolean isPaid;
 
     @SerializedName("paidAt")
     private String paidAt;
@@ -47,7 +49,21 @@ public class OrderDetail {
 
     private String CreatedAt;
 
-    public OrderDetail(String id, Users user, String paymentMethod, String taxPrice, String shippingPrice, String totalPrice, String isPaid, String paidAt, boolean isDelivered, String deliveredAt, OrderItems[] orderItems, JsonObject shippingAddress, String createdAt) {
+    public OrderDetail(){
+
+    }
+
+    public OrderDetail(Users user, String paymentMethod, double taxPrice, double shippingPrice, double totalPrice, OrderItems[] orderItems, JsonObject shippingAddress) {
+        User = user;
+        this.paymentMethod = paymentMethod;
+        this.taxPrice = taxPrice;
+        this.shippingPrice = shippingPrice;
+        this.totalPrice = totalPrice;
+        this.orderItems = orderItems;
+        this.shippingAddress = shippingAddress;
+    }
+
+    public OrderDetail(String id, Users user, String paymentMethod, double taxPrice, double shippingPrice, double totalPrice, boolean isPaid, String paidAt, boolean isDelivered, String deliveredAt, OrderItems[] orderItems, JsonObject shippingAddress, String createdAt) {
         this.id = id;
         User = user;
         this.paymentMethod = paymentMethod;
@@ -87,36 +103,36 @@ public class OrderDetail {
         this.paymentMethod = paymentMethod;
     }
 
-    public String getTaxPrice() {
+    public double getTaxPrice() {
         return taxPrice;
     }
 
-    public void setTaxPrice(String taxPrice) {
+    public void setTaxPrice(double taxPrice) {
         this.taxPrice = taxPrice;
     }
 
-    public String getShippingPrice() {
+    public double getShippingPrice() {
         return shippingPrice;
     }
 
-    public void setShippingPrice(String shippingPrice) {
+    public void setShippingPrice(double shippingPrice) {
         this.shippingPrice = shippingPrice;
     }
 
-    public String getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(String totalPrice) {
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
-    public String getIsPaid() {
+    public boolean isPaid() {
         return isPaid;
     }
 
-    public void setIsPaid(String isPaid) {
-        this.isPaid = isPaid;
+    public void setPaid(boolean paid) {
+        isPaid = paid;
     }
 
     public String getPaidAt() {
@@ -127,12 +143,12 @@ public class OrderDetail {
         this.paidAt = paidAt;
     }
 
-    public boolean getIsDelivered() {
+    public boolean isDelivered() {
         return isDelivered;
     }
 
-    public void setIsDelivered(boolean isDelivered) {
-        this.isDelivered = isDelivered;
+    public void setDelivered(boolean delivered) {
+        isDelivered = delivered;
     }
 
     public String getDeliveredAt() {
@@ -165,5 +181,24 @@ public class OrderDetail {
 
     public void setCreatedAt(String createdAt) {
         CreatedAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderDetail{" +
+                "id='" + id + '\'' +
+                ", User=" + User +
+                ", paymentMethod='" + paymentMethod + '\'' +
+                ", taxPrice=" + taxPrice +
+                ", shippingPrice=" + shippingPrice +
+                ", totalPrice=" + totalPrice +
+                ", isPaid=" + isPaid +
+                ", paidAt='" + paidAt + '\'' +
+                ", isDelivered=" + isDelivered +
+                ", deliveredAt='" + deliveredAt + '\'' +
+                ", orderItems=" + Arrays.toString(orderItems) +
+                ", shippingAddress=" + shippingAddress +
+                ", CreatedAt='" + CreatedAt + '\'' +
+                '}';
     }
 }

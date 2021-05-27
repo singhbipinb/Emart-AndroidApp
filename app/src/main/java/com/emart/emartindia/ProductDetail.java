@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.emart.emartindia.apiclient.ProductInterface;
@@ -158,11 +159,14 @@ public class ProductDetail extends BaseNavigation {
           String updatequery = "update MyCart set qty="+prevqty+" where itemid='"+productid+"'";
 
     mydb.execSQL(updatequery);
+            Toast.makeText(getApplicationContext(),"Product Added to Cart",Toast.LENGTH_LONG).show();
 
         }
         else {
 
             mydb.execSQL(AddQuery);
+            Toast.makeText(getApplicationContext(),"Product Added to Cart",Toast.LENGTH_LONG).show();
+
 
 
 
