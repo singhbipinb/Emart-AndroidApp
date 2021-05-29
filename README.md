@@ -1,6 +1,7 @@
 # eMart India Android Application
 
-Emart India is an online merchandise store build for Android Devices.
+>Emart India is an online merchandise store build for Android Devices.
+
 ![screenshot](https://github.com/singhbipinb/Emart-AndroidApp/blob/main/Homepage.jpg?raw=true)
 ## Features
 -Full featured shopping cart
