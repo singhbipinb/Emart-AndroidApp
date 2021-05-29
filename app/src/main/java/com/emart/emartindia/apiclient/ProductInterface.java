@@ -17,33 +17,28 @@ public interface ProductInterface {
 //    public Products products = null;
 
     @GET("/api/products/{pid}")
-
-    Call<Products> GetProduct (@Path("pid") String product);
+    Call<Products> GetProduct(@Path("pid") String product);
 
     @PUT("/api/products/{pid}")
-
-    Call<Products> UpdateProduct (@Path("pid") String product);
+    Call<Products> UpdateProduct(@Path("pid") String product);
 
 
     @DELETE("/api/products/{pid}")
-
-    Call<Products> DeleteProduct (@Path("pid") String product);
+    Call<Products> DeleteProduct(@Path("pid") String product);
 
     @POST("/api/products/{pid}/reviews")
-
-    Call<Products> AddReview (@Path("pid") String product);
-
+    Call<Products> AddReview(@Path("pid") String product);
 
 
     @GET("/api/products?page=2")
-    Call<JsonElement> GetAllProduct ();
+    Call<JsonElement> GetAllProduct();
 
 
     @POST("/api/products/")
-    Call<List<Products>> AddProduct ();
+    Call<List<Products>> AddProduct();
 
     @GET("api/browse/{category}")
-    Call<JsonElement> browseProductbyCategory (@Path("category") String category);
+    Call<JsonElement> browseProductbyCategory(@Path("category") String category);
 
 //    @FormUrlEncoded
 //    Observable<String> executeLogin(@Field("email") String email, @Field("password") String password);

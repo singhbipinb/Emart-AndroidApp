@@ -1,7 +1,5 @@
 package com.emart.emartindia;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,31 +19,30 @@ public class Profile extends BaseNavigation {
 
     SharedPreferences LoginToken;
 
-    EditText fullname,emailupdate, passupdate;
+    EditText fullname, emailupdate, passupdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Profile");
         overridePendingTransition(R.transition.fadein, R.transition.fadeout);
-        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
-        View view = inflater.inflate(R.layout.activity_profile,null,false);
+        View view = inflater.inflate(R.layout.activity_profile, null, false);
         frameLayout.addView(view);
 
         fullname = (EditText) findViewById(R.id.nameprofile);
-        emailupdate = (EditText)findViewById(R.id.emailprofile);
-        passupdate = (EditText)findViewById(R.id.passwordprofile);
+        emailupdate = (EditText) findViewById(R.id.emailprofile);
+        passupdate = (EditText) findViewById(R.id.passwordprofile);
 
 
-        LoginToken = getSharedPreferences("LoginData",MODE_PRIVATE);
+        LoginToken = getSharedPreferences("LoginData", MODE_PRIVATE);
 
-        String s1 = LoginToken.getString("authname","");
-        String s2 = LoginToken.getString("authemail","");
+        String s1 = LoginToken.getString("authname", "");
+        String s2 = LoginToken.getString("authemail", "");
 
         fullname.setText(s1);
         emailupdate.setText(s2);
-
-
 
 
     }
@@ -63,40 +60,32 @@ public class Profile extends BaseNavigation {
         user.setPassword(passupdate.getText().toString());
 
 
-        Call<Users> call = apicall.UpdateUser("Bearer "+LoginToken.getString("authtoken",""),user);
+        Call<Users> call = apicall.UpdateUser("Bearer " + LoginToken.getString("authtoken", ""), user);
 
         call.enqueue(new Callback<Users>() {
             @Override
             public void onResponse(Call<Users> call, Response<Users> response) {
 
-                if(response.body()!=null){
+                if (response.body() != null) {
 
 //                    loading.setVisibility(View.GONE);
 //                    findViewById(R.id.registerpage).setVisibility(View.VISIBLE);
 //
-                    LoginToken = getSharedPreferences("LoginData",MODE_PRIVATE);
+                    LoginToken = getSharedPreferences("LoginData", MODE_PRIVATE);
 
                     SharedPreferences.Editor myEditor = LoginToken.edit();
 
-                    myEditor.putString("authtoken",response.body().getAuthToken());
-                    myEditor.putString("authname",response.body().getName());
-                    myEditor.putString("authemail",response.body().getEmail());
+                    myEditor.putString("authtoken", response.body().getAuthToken());
+                    myEditor.putString("authname", response.body().getName());
+                    myEditor.putString("authemail", response.body().getEmail());
 
-                    if(myEditor.commit()){
-                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                    if (myEditor.commit()) {
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                     }
-//
-//                    System.out.println("Authtoken "+response.body().getEmail());
-//
-//                    msgregister.setText("Registered Successfully");
-
-                    System.out.println("Profile Updated");
 
 
-                }
-
-                else {
+                } else {
 //                    loading.setVisibility(View.GONE);
 //                    findViewById(R.id.registerpage).setVisibility(View.VISIBLE);
 //                    msgregister.setText("User Already Exists");
@@ -107,9 +96,6 @@ public class Profile extends BaseNavigation {
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
 
-                System.out.println("Unable to login"+t.toString());
-//                loading.setVisibility(View.GONE);
-//                findViewById(R.id.registerpage).setVisibility(View.VISIBLE);
 
             }
         });

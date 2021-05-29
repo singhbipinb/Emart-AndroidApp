@@ -2,9 +2,10 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/drawerlayout"
+    android:background="#ffeee8"
     tools:context=".BaseNavigation">
 
 
@@ -19,10 +20,19 @@
 
 
             <androidx.appcompat.widget.Toolbar
+                android:id="@+id/maintoolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/white"
-                android:id="@+id/maintoolbar"/>
+                android:background="@color/white">
+
+                <ImageView
+                    android:id="@+id/toolbarcart"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/cart" />
+            </androidx.appcompat.widget.Toolbar>
 
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -30,34 +40,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
             <FrameLayout
+                android:id="@+id/content_frame"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/content_frame"/>
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
-
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navview"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/navview"
-        app:headerLayout="@layout/navigation_header"
+
         android:layout_gravity="start"
-        app:menu="@menu/nav_menu"/>
-
-
-
-
-
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/nav_menu" />
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -8,7 +8,7 @@ public class Users {
     private String id;
 
     @SerializedName("name")
-private String Name;
+    private String Name;
 
     @SerializedName("email")
     private String Email;
@@ -24,7 +24,7 @@ private String Name;
 
     private String AuthToken;
 
-    public Users(){
+    public Users() {
 
     }
 

@@ -1,15 +1,8 @@
 package com.emart.emartindia;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,19 +10,22 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.emart.emartindia.models.Orders;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.google.android.material.navigation.NavigationView;
 
 public class BaseNavigation extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Toolbar toolbar;
-
     protected DrawerLayout drawerLayout;
-
     protected FrameLayout frameLayout;
     SharedPreferences LoginToken;
     String name, email;
-    TextView tv1,tv2;
+    TextView tv1, tv2;
+    private Toolbar toolbar;
     private NavigationView navigationView;
     private LinearLayout login, loggedin;
 
@@ -45,7 +41,7 @@ public class BaseNavigation extends AppCompatActivity implements NavigationView.
         navigationView = findViewById(R.id.navview);
         frameLayout = findViewById(R.id.content_frame);
 
-        LoginToken = getSharedPreferences("LoginData",MODE_PRIVATE);
+        LoginToken = getSharedPreferences("LoginData", MODE_PRIVATE);
 
         setSupportActionBar(toolbar);
 
@@ -53,7 +49,7 @@ public class BaseNavigation extends AppCompatActivity implements NavigationView.
                 this,
                 drawerLayout,
                 toolbar,
-                R.string.opennavigation,R.string.closenavigation
+                R.string.opennavigation, R.string.closenavigation
         );
 
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -65,19 +61,19 @@ public class BaseNavigation extends AppCompatActivity implements NavigationView.
         loginStatus();
 
 
-
-
-
-
-
-
+        findViewById(R.id.toolbarcart).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Cart.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
 
-    public void loginStatus(){
+    public void loginStatus() {
 
-        System.out.println("LoignStatusclas");
 
         View view = navigationView.getHeaderView(0);
         Menu menu = navigationView.getMenu();
@@ -87,11 +83,9 @@ public class BaseNavigation extends AppCompatActivity implements NavigationView.
 
         tv1 = view.findViewById(R.id.navheadername);
         tv2 = view.findViewById(R.id.navheaderemail);
-        System.out.println("Auth name"+LoginToken.getString("authtoken",""));
 
-        if(LoginToken.getString("authtoken","").isEmpty()){
+        if (LoginToken.getString("authtoken", "").isEmpty()) {
 
-            System.out.println("Empty hai");
 
             login.setVisibility(View.VISIBLE);
             loggedin.setVisibility(View.INVISIBLE);
@@ -99,13 +93,12 @@ public class BaseNavigation extends AppCompatActivity implements NavigationView.
 
             item.setVisible(false);
 
-        }
-        else {
+        } else {
 
             name = LoginToken.getString("authname", "");
             email = LoginToken.getString("authemail", "");
-            tv1.setText(""+name);
-            tv2.setText(""+email);
+            tv1.setText("" + name);
+            tv2.setText("" + email);
             login.setVisibility(View.INVISIBLE);
             loggedin.setVisibility(View.VISIBLE);
 
@@ -115,30 +108,29 @@ public class BaseNavigation extends AppCompatActivity implements NavigationView.
         view.findViewById(R.id.navtologin).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),Login.class);
+                Intent intent = new Intent(getApplicationContext(), Login.class);
                 startActivity(intent);
-                overridePendingTransition(R.transition.fadein,R.transition.fadeout);
+                overridePendingTransition(R.transition.fadein, R.transition.fadeout);
             }
         });
 
     }
 
     @Override
-    public boolean onNavigationItemSelected( MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item) {
 
         int id = item.getItemId();
 
-        String loginto = LoginToken.getString("authtoken","");
+        String loginto = LoginToken.getString("authtoken", "");
 
-        switch (id){
+        switch (id) {
 
             case R.id.myorders:
-                if(loginto.isEmpty()){
+                if (loginto.isEmpty()) {
                     Intent intent = new Intent(this, Login.class);
                     startActivity(intent);
 
-                }
-                else {
+                } else {
                     Intent intent = new Intent(this, MyOrders.class);
                     startActivity(intent);
 
@@ -146,12 +138,11 @@ public class BaseNavigation extends AppCompatActivity implements NavigationView.
                 break;
 
             case R.id.mycart:
-                if(loginto.isEmpty()){
+                if (loginto.isEmpty()) {
                     Intent intent = new Intent(this, Login.class);
                     startActivity(intent);
 
-                }
-                else {
+                } else {
                     Intent intent2 = new Intent(this, Cart.class);
                     startActivity(intent2);
 
@@ -159,12 +150,11 @@ public class BaseNavigation extends AppCompatActivity implements NavigationView.
                 break;
 
             case R.id.myprofile:
-                if(loginto.isEmpty()){
+                if (loginto.isEmpty()) {
                     Intent intent = new Intent(this, Login.class);
                     startActivity(intent);
 
-                }
-                else {
+                } else {
                     Intent intent3 = new Intent(this, Profile.class);
                     startActivity(intent3);
 
@@ -172,42 +162,42 @@ public class BaseNavigation extends AppCompatActivity implements NavigationView.
                 break;
 
             case R.id.categoty:
-                if(loginto.isEmpty()){
-                    Intent intent = new Intent(this, Login.class);
-                    startActivity(intent);
+//                if(loginto.isEmpty()){
+//                    Intent intent = new Intent(this, Login.class);
+//                    startActivity(intent);
+//
+//                }
+//                else {
+                Intent intent3 = new Intent(this, Categories.class);
+                startActivity(intent3);
 
-                }
-                else {
-                    Intent intent3 = new Intent(this, Browse.class);
-                    startActivity(intent3);
-
-                }
+//                }
                 break;
 
             case R.id.logout:
-                if(loginto.isEmpty()){
+                if (loginto.isEmpty()) {
 
-                }
-                else {
+                } else {
                     LogOut();
                     findViewById(R.id.logout).setVisibility(View.GONE);
+                    Intent intent4 = new Intent(this, MainActivity.class);
+                    startActivity(intent4);
+
                 }
                 break;
 
             case R.id.home:
-                Intent intent3 = new Intent(this, MainActivity.class);
-                startActivity(intent3);
+                Intent intent4 = new Intent(this, MainActivity.class);
+                startActivity(intent4);
+                break;
+
+            case R.id.contact:
+                Intent intent5 = new Intent(this, ContactActivity.class);
+                startActivity(intent5);
                 break;
 
 
-
-
-
-
-
         }
-
-        System.out.println("Item Clicked "+item.getItemId());
 
 
         return false;
@@ -219,12 +209,10 @@ public class BaseNavigation extends AppCompatActivity implements NavigationView.
 
         editor.clear();
 
-        if(editor.commit()){
+        if (editor.commit()) {
             drawerLayout.closeDrawer(GravityCompat.START);
             loginStatus();
         }
-
-
 
 
     }

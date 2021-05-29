@@ -2,8 +2,6 @@ package com.emart.emartindia.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 public class Products {
 
     @SerializedName("_id")
@@ -32,21 +30,14 @@ public class Products {
 
     @SerializedName("countInStock")
     private String countInStock;
-
-    public String getDescription() {
-        return Description;
-    }
-
-    public void setDescription(String description) {
-        Description = description;
-    }
-
     @SerializedName("description")
     private String Description;
-
     @SerializedName("reviews")
     private Reviews[] reviews;
 
+    public Products() {
+
+    }
 
     public Products(String id, String name, String image, String brand, String category, int numReviews, String price, double rating, String countInStock, String description, Reviews reviews[]) {
         this.id = id;
@@ -60,6 +51,14 @@ public class Products {
         this.countInStock = countInStock;
         Description = description;
         this.reviews = reviews;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
     }
 
     public String getId() {

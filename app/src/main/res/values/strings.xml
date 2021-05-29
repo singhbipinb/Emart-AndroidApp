@@ -21,10 +21,29 @@
     <string name="Iphoneprice">159,999</string>
     <string name="Canon">Canon</string>
     <string name="DSLRPrice">59,999</string>
-    <string name="iWatch">iWatch</string>
-    <string name="price3">49,999</string>
-    <string name="Cleaner">Cleaner</string>
-    <string name="prive4">9,999</string>
+    <string name="iWatch">Watch Series 6</string>
+    <string name="price3">41,990</string>
+    <string name="Cleaner">Mi Notebook 14</string>
+    <string name="prive4">54,999</string>
+
+    <string name="contact">contact</string>
+    <string name="textview">Meet with Us</string>
+    <string name="Contact">Contact</string>
+    <string name="we_d_love_to_talk_with_you_about_your_next_project_drop_us_a_line_and_we_ll_get_to_you_within_two_days">We would love to talk with you about your next project. Drop us a line, and we\'ll get to you within two days.</string>
+    <string name="want_to_hear_from_us_sooner_call_us">Want to hear from us sooner? Call us…</string>
+    <string name="location">Location</string>
+    <string name="myaddress">Hostel 11, MM University Mullana, Ambala Haryana 133207 </string>
+    <string name="call">Call</string>
+    <string name="myemail">bipinsingh130100@gmail.com</string>
+    <string name="contact1">+91 7988639898</string>
+    <string name="contact2">+91 8529873125</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="send_message">Send Message</string>
+    <string name="message">Message</string>
+    <string name="subject">Subject</string>
+    <string name="e_mail">E-mail</string>
+    <string name="contactpage">Contact Us</string>
 
 
 </resources>

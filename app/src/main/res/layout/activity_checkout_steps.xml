@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffeee8"
     tools:context=".CheckoutSteps">
 
     <LinearLayout
+        android:id="@+id/checkoutaddress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/checkoutaddress"
-        android:visibility="visible"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="92dp"
+            android:layout_marginEnd="24dp"
+            android:gravity="center"
+            android:text="Shipping Address"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/addresserror"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="92dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="24dp"
             android:textColor="#FF0000" />
 
@@ -27,11 +39,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:inputType="number"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="24dp"
             android:hint="Mobile"
-            />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/coadd1"
@@ -40,8 +51,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
-            android:hint="Address"
-            />
+            android:hint="Address" />
 
         <EditText
             android:id="@+id/coaddcity"
@@ -60,8 +70,8 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="24dp"
-            android:inputType="number"
             android:hint="Postal Code"
+            android:inputType="number"
             android:selectAllOnFocus="true" />
 
         <EditText
@@ -89,16 +99,14 @@
             android:text="Continue" />
 
 
-
-
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/checkoutpayment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/checkoutpayment"
-        android:visibility="invisible"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="invisible">
 
 
         <TextView
@@ -106,21 +114,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:text="Payment Method"
             android:layout_marginTop="92dp"
             android:layout_marginEnd="24dp"
-            android:textColor="#FF0000" />
+            android:gravity="center"
+            android:text="Payment Method"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
 
         <RadioButton
             android:id="@+id/radioButton"
             android:layout_width="match_parent"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="20dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:checked="true"
             android:text="Cash on Delivery" />
-
-
 
 
         <Button
@@ -139,11 +148,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/checkoutoverview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/checkoutoverview"
-        android:visibility="invisible"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="invisible">
 
 
         <ScrollView
@@ -158,37 +167,41 @@
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
 
 
                     <TextView
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/odorderid"
+                        android:layout_margin="5dp"
                         android:text="Order Summary"
-                        />
+                        android:textSize="21sp"
+                        android:textStyle="bold" />
 
                 </androidx.cardview.widget.CardView>
 
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_marginBottom="10dp"
+                    android:layout_height="wrap_content"
 
-                    android:layout_height="wrap_content">
+                    android:layout_marginBottom="10dp">
 
                     <LinearLayout
+                        android:id="@+id/oilLinearlayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/oilLinearlayout"
+                        android:layout_margin="5dp"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Order Items"
-                            />
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -197,50 +210,57 @@
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
                         android:orientation="vertical">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Shipping Details"
-                            />
+
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
-                            android:background="@color/black"/>
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/black" />
 
                         <TextView
+                            android:id="@+id/shippingname"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/shippingname"
                             android:text="Name"
-                            />
+                            android:textSize="16sp" />
 
                         <TextView
+                            android:id="@+id/shippingmobile"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Contact"
-                            android:id="@+id/shippingmobile"
-                            />
+                            android:textSize="16sp" />
 
                         <TextView
+                            android:id="@+id/shippingemail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Email"
-                            android:id="@+id/shippingemail"
-                            />
+                            android:textSize="16sp" />
 
                         <TextView
+                            android:id="@+id/shippingaddress"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
                             android:text="Address"
-                            android:id="@+id/shippingaddress"
-                            />
+                            android:textSize="16sp" />
 
                     </LinearLayout>
 
@@ -248,37 +268,42 @@
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
                         android:orientation="vertical">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Shipping Details"
-                            />
+                            android:text="Order Summary"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
-                            android:background="@color/black"/>
+                            android:background="@color/black" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-
+                            android:layout_marginTop="10dp"
                             android:text="Payment method"
-                            />
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/odpaymentmethod"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/odpaymentmethod"
-                            android:layout_margin="5dp"
-                            android:text="Name"
-                            />
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:text="Name" />
 
 
                         <GridLayout
@@ -295,17 +320,17 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_weight="1.0"
                                     android:text="Items Total"
-                                    android:layout_weight="1.0"
-                                    />
+                                    android:textSize="16sp" />
 
                                 <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="Name"
                                     android:id="@+id/oditemprice"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:layout_weight="1.0"
-                                    />
+                                    android:text="Name"
+                                    android:textSize="16sp" />
 
                             </LinearLayout>
 
@@ -318,17 +343,17 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_weight="1.0"
                                     android:text="Shipping Charges"
-                                    android:layout_weight="1.0"
-                                    />
+                                    android:textSize="16sp" />
 
                                 <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="Name"
                                     android:id="@+id/odshipping"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:layout_weight="1.0"
-                                    />
+                                    android:text="Name"
+                                    android:textSize="16sp" />
 
                             </LinearLayout>
 
@@ -341,17 +366,17 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_weight="1.0"
                                     android:text="Tax"
-                                    android:layout_weight="1.0"
-                                    />
+                                    android:textSize="16sp" />
 
                                 <TextView
+                                    android:id="@+id/odtaxes"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Name"
-                                    android:id="@+id/odtaxes"
                                     android:layout_weight="1.0"
-                                    />
+                                    android:text="Name"
+                                    android:textSize="16sp" />
 
                             </LinearLayout>
 
@@ -365,17 +390,17 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Total Amount"
                                     android:layout_weight="1.0"
-                                    />
+                                    android:text="Total Amount"
+                                    android:textSize="16sp" />
 
                                 <TextView
+                                    android:id="@+id/odtotalamount"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Name"
-                                    android:id="@+id/odtotalamount"
                                     android:layout_weight="1.0"
-                                    />
+                                    android:text="Name"
+                                    android:textSize="16sp" />
 
                             </LinearLayout>
 
@@ -402,24 +427,13 @@
                     android:onClick="createOrder"
                     android:text="Place Order" />
 
-
             </LinearLayout>
-
-
 
 
         </ScrollView>
 
 
-
-
-
-
-
     </LinearLayout>
-
-
-
 
 
 </RelativeLayout>

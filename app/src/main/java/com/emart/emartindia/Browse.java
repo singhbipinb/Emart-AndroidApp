@@ -1,10 +1,11 @@
 package com.emart.emartindia;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ProgressBar;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -31,15 +33,24 @@ public class Browse extends BaseNavigation {
 
     ArrayList<Products> newlist;
     Gson gson = new Gson();
+
+    ProgressBar loader;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.transition.fadein, R.transition.fadeout);
-        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
-        View view = inflater.inflate(R.layout.activity_browse,null,false);
+        View view = inflater.inflate(R.layout.activity_browse, null, false);
 
         frameLayout.addView(view);
+
+        loader = findViewById(R.id.loading);
+
+        Intent intent = getIntent();
+        String category = intent.getStringExtra("subcategory");
+        setTitle(category);
 
 
         final ProductInterface apiser = apiClient.getClient().create(ProductInterface.class);
@@ -47,16 +58,15 @@ public class Browse extends BaseNavigation {
         List<Object> list = new ArrayList<>();
 
 
-        Call<JsonElement> call = apiser.browseProductbyCategory("Smartphones");
+        Call<JsonElement> call = apiser.browseProductbyCategory(category);
         call.enqueue(new Callback<JsonElement>() {
             @Override
             public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
 
-//                System.out.println(response.body() != null ? response.body().get("products") : null);
 
-                if(response.body()!=null){
+                if (response.body() != null) {
                     try {
-                        System.out.println("resdghdf"+response.body());
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -69,7 +79,8 @@ public class Browse extends BaseNavigation {
                     e.printStackTrace();
                 }
 
-                Type userListType = new TypeToken<ArrayList<Products>>(){}.getType();
+                Type userListType = new TypeToken<ArrayList<Products>>() {
+                }.getType();
 
                 ArrayList<Products> userArray = null;
                 try {
@@ -78,9 +89,12 @@ public class Browse extends BaseNavigation {
                     e.printStackTrace();
                 }
 
-                System.out.println("Get State"+userArray.get(0).getBrand());
 
+                Collections.reverse(userArray);
+
+                loader.setVisibility(View.INVISIBLE);
                 RecyclerView recyclerView = findViewById(R.id.recyclebrowse);
+                recyclerView.setVisibility(View.VISIBLE);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 recyclerView.setAdapter(new ProductsAdapter(userArray));
 
@@ -88,14 +102,10 @@ public class Browse extends BaseNavigation {
 
             @Override
             public void onFailure(Call<JsonElement> call, Throwable t) {
-                System.out.println("Nhi ho rha");
-                System.out.println(""+t);
+
 
             }
         });
-
-
-
 
 
     }

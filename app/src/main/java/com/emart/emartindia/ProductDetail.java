@@ -1,18 +1,17 @@
 package com.emart.emartindia;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,26 +31,38 @@ import retrofit2.Response;
 public class ProductDetail extends BaseNavigation {
 
     ImageView imageView;
-    TextView name,price,description;
+    TextView name, price, description, noreview;
     String productid, AddQuery, ExecuteQuery;
     SQLiteDatabase mydb;
+    Products products = new Products();
+
+    ScrollView sc;
+    ProgressBar loader;
+
+    Spinner qty;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Product Detail");
         overridePendingTransition(R.transition.fadein, R.transition.fadeout);
-        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
-        View view = inflater.inflate(R.layout.activity_product_detail,null,false);
+        View view = inflater.inflate(R.layout.activity_product_detail, null, false);
 
         frameLayout.addView(view);
 
 
-        imageView= findViewById(R.id.imageView);
+        imageView = findViewById(R.id.imageView);
         name = findViewById(R.id.textView);
         price = findViewById(R.id.textView2);
         description = findViewById(R.id.descriptionTV);
+        qty = findViewById(R.id.button3);
+        noreview = findViewById(R.id.reviewno);
+        loader = findViewById(R.id.loading);
+        sc = findViewById(R.id.productdetailavil);
 
-        mydb = openOrCreateDatabase("cartdb",MODE_PRIVATE,null);
+        mydb = openOrCreateDatabase("cartdb", MODE_PRIVATE, null);
 
 
         Intent intent = getIntent();
@@ -66,6 +77,8 @@ public class ProductDetail extends BaseNavigation {
             @Override
             public void onResponse(Call<Products> call, Response<Products> response) {
 
+                products = response.body();
+
                 Glide.with(getApplicationContext()).load(response.body().getImage()).into(imageView);
 
 //                imageView.setImageURI(Uri.parse(response.body().getImage()));
@@ -75,28 +88,37 @@ public class ProductDetail extends BaseNavigation {
                 String[] descar = response.body().getDescription().split(",");
 
                 String desc = "";
-                for (String i : descar){
-                    desc = desc + "- "+i+"\n";
+                for (String i : descar) {
+                    desc = desc + "- " + i + "\n";
 
                 }
 
                 description.setText(desc);
 
+                List<Integer> stock = new ArrayList<>();
+                for (int i = 1; i <= Integer.parseInt(String.valueOf(response.body().getCountInStock())) / 10; i++) {
+                    stock.add(i);
+                }
 
-//
-//
-//                System.out.println("REvi "+response.body().getReviews()[0].getComment());
+                ArrayAdapter<Integer> qtyAdapter = new ArrayAdapter<Integer>(getApplicationContext(), android.R.layout.simple_spinner_item, stock);
+
+                qtyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                qty.setAdapter(qtyAdapter);
+
+                qty.setSelection(0);
+
 
                 List<String> list = new ArrayList<>();
 
-                for (Reviews r : response.body().getReviews()){
+                for (Reviews r : response.body().getReviews()) {
 
-                    String Ratingstar ="";
-                    for (int i=0;i<r.getRating();i++){
-                        Ratingstar = Ratingstar+"\u2605";
+                    String Ratingstar = "";
+                    for (int i = 0; i < r.getRating(); i++) {
+                        Ratingstar = Ratingstar + "\u2605";
                     }
 
-                    list.add(r.getReviewer()+"\n"+Ratingstar+"\n"+r.getComment());
+                    list.add(r.getReviewer() + "\n" + Ratingstar + "\n" + r.getComment());
                 }
 //                ArrayAdapter adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.reviewlayout,list);
 
@@ -104,33 +126,36 @@ public class ProductDetail extends BaseNavigation {
 
                 LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
+                if (response.body().getReviews().length == 0) {
+                    noreview.setVisibility(View.VISIBLE);
+                }
+
                 for (int i = 0; i < response.body().getReviews().length; i++) {
-                    View view = inflater.inflate(R.layout.reviewlayout,null);
+                    View view = inflater.inflate(R.layout.reviewlayout, null);
 
                     TextView tv1 = view.findViewById(R.id.textView6);
 
-                    tv1.setText(""+response.body().getReviews()[i].getReviewer());
+                    tv1.setText("" + response.body().getReviews()[i].getReviewer());
 
 
-                    String Ratingstar ="";
-                    for (int j=0;j<response.body().getReviews()[i].getRating();j++){
-                        Ratingstar = Ratingstar+"\u2605";
+                    String Ratingstar = "";
+                    for (int j = 0; j < response.body().getReviews()[i].getRating(); j++) {
+                        Ratingstar = Ratingstar + "\u2605";
                     }
 
 
                     TextView tv2 = view.findViewById(R.id.textView4);
 
-                    tv2.setText(""+Ratingstar);
+                    tv2.setText("" + Ratingstar);
                     TextView tv3 = view.findViewById(R.id.textView5);
 
-                    tv3.setText(""+response.body().getReviews()[i].getComment());
+                    tv3.setText("" + response.body().getReviews()[i].getComment());
 
                     reviLi.addView(view);
                 }
 
-                AddQuery = "insert into MyCart values('"+productid+"','"+response.body().getName()+"','" +
-                        response.body().getImage()+"',"+response.body().getPrice()+","+
-                        response.body().getCountInStock()+","+1+")";
+                loader.setVisibility(View.INVISIBLE);
+                sc.setVisibility(View.VISIBLE);
 
 
             }
@@ -145,45 +170,32 @@ public class ProductDetail extends BaseNavigation {
 
     public void AddtoCart(View view) {
 
+
+        AddQuery = "insert into MyCart values('" + productid + "','" + products.getName() + "','" +
+                products.getImage() + "'," + products.getPrice() + "," +
+                products.getCountInStock() + "," + Integer.parseInt(String.valueOf(qty.getSelectedItem())) + ")";
+
+
         mydb.execSQL("create table if not exists MyCart(itemid varchar primary key,name varchar, image varchar, price double," +
                 "countinstock integer, qty integer)");
 
-        Cursor resultset = mydb.rawQuery("select * from MyCart where itemid='"+productid+"'",null);
+        Cursor resultset = mydb.rawQuery("select * from MyCart where itemid='" + productid + "'", null);
 
-        if(resultset.moveToFirst()){
-            System.out.println("rubjksjjbdks"+resultset.getInt(4));
+        if (resultset.moveToFirst()) {
+            int prevqty = resultset.getInt(5) + Integer.parseInt(String.valueOf(qty.getSelectedItem()));
 
-            System.out.println();
-          int prevqty = resultset.getInt(5)+1;
+            String updatequery = "update MyCart set qty=" + prevqty + " where itemid='" + productid + "'";
 
-          String updatequery = "update MyCart set qty="+prevqty+" where itemid='"+productid+"'";
+            mydb.execSQL(updatequery);
+            Toast.makeText(getApplicationContext(), "Product Added to Cart", Toast.LENGTH_LONG).show();
 
-    mydb.execSQL(updatequery);
-            Toast.makeText(getApplicationContext(),"Product Added to Cart",Toast.LENGTH_LONG).show();
-
-        }
-        else {
+        } else {
 
             mydb.execSQL(AddQuery);
-            Toast.makeText(getApplicationContext(),"Product Added to Cart",Toast.LENGTH_LONG).show();
-
-
+            Toast.makeText(getApplicationContext(), "Product Added to Cart", Toast.LENGTH_LONG).show();
 
 
         }
-
-        Cursor result = mydb.rawQuery("select * from MyCart",null);
-
-        if(result.moveToFirst()){
-
-            do{
-                System.out.println(""+result.getString(0)+" "+result.getString(1)+" "+result.getString(2)+" "
-                        +result.getDouble(3)+" "+result.getInt(4)+" "+result.getInt(5)+" ");
-            }
-            while (result.moveToNext());
-
-        }
-
 
 
     }

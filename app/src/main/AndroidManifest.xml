@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/emart"
@@ -12,7 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EMartIndia"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Categories"></activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCXzQPENJDG4mDN3XGNyS3oE-KymFEAqD8" />
+
+        <activity android:name=".ContactActivity"></activity>
+        <activity android:name=".SubCategories" />
+        <activity android:name=".Categories" />
         <activity android:name=".Profile" />
         <activity android:name=".BaseNavigation" />
         <activity android:name=".CheckoutSteps" />

@@ -14,8 +14,12 @@ import com.emart.emartindia.OrderDetails;
 import com.emart.emartindia.R;
 import com.emart.emartindia.models.Orders;
 
-
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewHolder> {
 
@@ -23,9 +27,9 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
 
     ArrayList<Orders> list = new ArrayList<>();
 
-    public OrdersAdapter(ArrayList<Orders> list){
+    public OrdersAdapter(ArrayList<Orders> list) {
 
-        this.list=list;
+        this.list = list;
     }
 
     @Override
@@ -34,7 +38,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
         context = parent.getContext();
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.orderscard,parent,false);
+        View view = inflater.inflate(R.layout.orderscard, parent, false);
 
         return new OrderViewHolder(view);
     }
@@ -42,14 +46,34 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
     @Override
     public void onBindViewHolder(OrderViewHolder holder, int position) {
 
-        holder.orderid.setText(""+list.get(position).getId().toUpperCase());
-        holder.orderdate.setText(""+list.get(position).getCreatedAt());
-        holder.orderamount.setText(""+list.get(position).getTotalPrice());
+        holder.orderid.setText("Order ID: " + list.get(position).getId().toUpperCase());
 
-        if(list.get(position).getIsDelivered()){
-            holder.orderstatus.setText(""+list.get(position).getDeliveredAt());
+        DateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        utcFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        Date date = null;
+        try {
+            date = utcFormat.parse("" + list.get(position).getCreatedAt());
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        else {
+
+        DateFormat pstFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+        pstFormat.setTimeZone(TimeZone.getTimeZone("IST"));
+
+        holder.orderdate.setText("Order Date: " + pstFormat.format(date));
+        holder.orderamount.setText("Total: " + list.get(position).getTotalPrice());
+
+        if (list.get(position).getIsDelivered()) {
+            Date date1 = null;
+            try {
+                date1 = utcFormat.parse("" + list.get(position).getCreatedAt());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            holder.orderstatus.setText("Delivered on: " + pstFormat.format(date1));
+//            System.out.println("Delivered on: "+list.get(position).getDeliveredAt());
+        } else {
             holder.orderstatus.setText("Yet to be delivered");
         }
 
@@ -58,8 +82,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
             public void onClick(View view) {
 
                 Intent intent = new Intent(context, OrderDetails.class);
-                intent.putExtra("orderid",list.get(position).getId());
-                System.out.println("Order id 1"+list.get(position).getId());
+                intent.putExtra("orderid", list.get(position).getId());
+                System.out.println("Order id 1" + list.get(position).getId());
                 context.startActivity(intent);
             }
         });
@@ -71,7 +95,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
         return list.size();
     }
 
-    public class OrderViewHolder extends RecyclerView.ViewHolder{
+    public class OrderViewHolder extends RecyclerView.ViewHolder {
 
         TextView orderid, orderdate, orderstatus, orderamount;
         CardView cv;

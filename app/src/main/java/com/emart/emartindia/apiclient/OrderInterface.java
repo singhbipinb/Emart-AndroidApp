@@ -20,24 +20,22 @@ public interface OrderInterface {
 //    public Products products = null;
 
     @GET("/api/orders/{oid}")
-    Call<OrderDetail> GetOne (@Path("oid") String product, @Header("Authorization") String authHeader);
+    Call<OrderDetail> GetOne(@Path("oid") String product, @Header("Authorization") String authHeader);
 
     @GET("/api/orders/")
-    Call<List<Orders>> GetAll (@Header("Authorization") String authHeader);
+    Call<List<Orders>> GetAll(@Header("Authorization") String authHeader);
 
     @GET("/api/orders/myorders")
-    Call<List<Orders>> GetUsersAll (@Header("Authorization") String authHeader);
+    Call<List<Orders>> GetUsersAll(@Header("Authorization") String authHeader);
 
     @PUT("/api/orders/{oid}/pay")
-    Call<Orders> PayOrder (@Path("oid") String orderid);
+    Call<Orders> PayOrder(@Path("oid") String orderid);
 
     @PUT("/api/orders/{oid}/deliver")
-    Call<Orders> DeliverOrder (@Path("oid") String orderid);
+    Call<Orders> DeliverOrder(@Path("oid") String orderid);
 
     @POST("/api/orders/")
-    Call<Orders> CreateOrder (@Header("Authorization") String authHeader, @Body OrderDetail order );
-
-
+    Call<Orders> CreateOrder(@Header("Authorization") String authHeader, @Body OrderDetail order);
 
 
 //    @FormUrlEncoded

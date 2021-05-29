@@ -1,9 +1,5 @@
 package com.emart.emartindia;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,17 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.emart.emartindia.adapter.OrdersAdapter;
 import com.emart.emartindia.apiclient.OrderInterface;
 import com.emart.emartindia.apiclient.apiClient;
 import com.emart.emartindia.models.OrderDetail;
-import com.emart.emartindia.models.Orders;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,15 +24,20 @@ public class OrderDetails extends BaseNavigation {
 
     String orderid;
 
-    TextView name, email, address, paymentmethod, itemtotal, shipping,tax, totalamount,orderidtv, mobile;
+    TextView name, email, address, paymentmethod, itemtotal, shipping, tax, totalamount, orderidtv, mobile;
+
+    ProgressBar loader;
+
+    ScrollView sc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Order Detail");
         overridePendingTransition(R.transition.fadein, R.transition.fadeout);
-        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
-        View view = inflater.inflate(R.layout.activity_order_details,null,false);
+        View view = inflater.inflate(R.layout.activity_order_details, null, false);
 
         frameLayout.addView(view);
 
@@ -55,32 +53,32 @@ public class OrderDetails extends BaseNavigation {
         orderidtv = findViewById(R.id.odorderid);
         mobile = findViewById(R.id.shippingmobile);
 
+        loader = findViewById(R.id.loading);
+        sc = findViewById(R.id.orderdetailspresent);
+
 
         Intent intent = getIntent();
 
         orderid = intent.getStringExtra("orderid");
 
-        System.out.println("Order id 2"+orderid);
 
         showOrderDetails();
 
     }
 
 
-    public void showOrderDetails(){
+    public void showOrderDetails() {
 
 
         final OrderInterface apiser = apiClient.getClient().create(OrderInterface.class);
 
-        SharedPreferences sh = getSharedPreferences("LoginData",MODE_PRIVATE);
+        SharedPreferences sh = getSharedPreferences("LoginData", MODE_PRIVATE);
 
 
+        String token = sh.getString("authtoken", "");
 
-        String token =  sh.getString("authtoken","");
 
-        System.out.println("Token "+token);
-
-        Call<OrderDetail> call = apiser.GetOne(orderid,"Bearer "+token);
+        Call<OrderDetail> call = apiser.GetOne(orderid, "Bearer " + token);
         call.enqueue(new Callback<OrderDetail>() {
             @Override
             public void onResponse(Call<OrderDetail> call, Response<OrderDetail> response) {
@@ -88,17 +86,17 @@ public class OrderDetails extends BaseNavigation {
 
                 OrderDetail order = response.body();
 
-                name.setText(""+order.getUser().getName());
-                mobile.setText(""+order.getShippingAddress().get("mobile"));
-                email.setText(""+order.getUser().getEmail());
-                address.setText(""+order.getShippingAddress().get("address")+" "+order.getShippingAddress().get("city")
-                +" "+order.getShippingAddress().get("country")+" "+order.getShippingAddress().get("postalCode"));
-                itemtotal.setText(""+order.getTotalPrice());
-                shipping.setText(""+order.getShippingPrice());
-                tax.setText(""+order.getTaxPrice());
-                totalamount.setText(""+order.getTotalPrice());
-                orderidtv.setText(""+order.getId().toUpperCase());
-                paymentmethod.setText(""+order.getPaymentMethod());
+                name.setText("Name: " + order.getUser().getName());
+                mobile.setText("Contact: " + order.getShippingAddress().get("mobile"));
+                email.setText("Email: " + order.getUser().getEmail());
+                address.setText("Address: " + order.getShippingAddress().get("address") + " " + order.getShippingAddress().get("city")
+                        + " " + order.getShippingAddress().get("country") + " " + order.getShippingAddress().get("postalCode"));
+                itemtotal.setText("" + order.getTotalPrice());
+                shipping.setText("" + order.getShippingPrice());
+                tax.setText("" + order.getTaxPrice());
+                totalamount.setText("" + order.getTotalPrice());
+                orderidtv.setText("Order ID: " + order.getId().toUpperCase());
+                paymentmethod.setText("" + order.getPaymentMethod());
 
 
                 LinearLayout reviLi = findViewById(R.id.oilLinearlayout);
@@ -106,7 +104,7 @@ public class OrderDetails extends BaseNavigation {
                 LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
                 for (int i = 0; i < response.body().getOrderItems().length; i++) {
-                    View view = inflater.inflate(R.layout.orderitemlist,null);
+                    View view = inflater.inflate(R.layout.orderitemlist, null);
 
                     ImageView img = view.findViewById(R.id.oilimg);
 
@@ -115,28 +113,27 @@ public class OrderDetails extends BaseNavigation {
 
                     TextView tv1 = view.findViewById(R.id.oilname);
 
-                    tv1.setText(""+response.body().getOrderItems()[i].getName());
+                    tv1.setText("" + response.body().getOrderItems()[i].getName());
 
 
                     TextView tv2 = view.findViewById(R.id.oilprice);
 
-                    tv2.setText(""+response.body().getOrderItems()[i].getPrice());
+                    tv2.setText("\u20B9 " + response.body().getOrderItems()[i].getPrice());
                     TextView tv3 = view.findViewById(R.id.oilqty);
 
-                    tv3.setText(""+response.body().getOrderItems()[i].getQuantity());
+                    tv3.setText("Quantity: " + response.body().getOrderItems()[i].getQuantity());
 
                     reviLi.addView(view);
                 }
 
-
+                loader.setVisibility(View.INVISIBLE);
+                sc.setVisibility(View.VISIBLE);
 
 
             }
 
             @Override
             public void onFailure(Call<OrderDetail> call, Throwable t) {
-                System.out.println("Nhi ho rha");
-                System.out.println(""+t);
 
 
             }

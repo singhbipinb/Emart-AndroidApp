@@ -19,7 +19,7 @@ public class OrderItems {
     @SerializedName("price")
     double Price;
 
-    public OrderItems(){
+    public OrderItems() {
 
     }
 

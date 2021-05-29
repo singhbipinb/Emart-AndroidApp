@@ -9,11 +9,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.emart.emartindia.apiclient.ProductInterface;
 import com.emart.emartindia.apiclient.UserInterface;
-import com.emart.emartindia.apiclient.apiClient;
 import com.emart.emartindia.models.Users;
 import com.google.gson.Gson;
 
@@ -24,23 +21,23 @@ import retrofit2.Retrofit;
 
 public class Login extends BaseNavigation {
 
-    private Retrofit retrofit;
     Gson gson = new Gson();
+    EditText email, pass, fullname, emailregister, passregister;
+    TextView msglogin, msgregister;
+    ProgressBar loading;
+    SharedPreferences LoginToken;
+    private Retrofit retrofit;
     private ProductInterface productInterface;
     private com.emart.emartindia.apiclient.apiClient apiClient;
-    EditText email, pass, fullname, emailregister, passregister;
-    TextView msglogin,msgregister;
-    ProgressBar loading;
-
-    SharedPreferences LoginToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Login");
         overridePendingTransition(R.transition.fadein, R.transition.fadeout);
-        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
-        View view = inflater.inflate(R.layout.activity_login,null,false);
+        View view = inflater.inflate(R.layout.activity_login, null, false);
 
         frameLayout.addView(view);
 
@@ -57,7 +54,7 @@ public class Login extends BaseNavigation {
     }
 
 
-    public void Login(){
+    public void Login() {
 
         findViewById(R.id.loginpage).setVisibility(View.INVISIBLE);
         loading.setVisibility(View.VISIBLE);
@@ -78,35 +75,29 @@ public class Login extends BaseNavigation {
             @Override
             public void onResponse(Call<Users> call, Response<Users> response) {
 
-                loading.setVisibility(View.GONE);
-                findViewById(R.id.loginpage).setVisibility(View.VISIBLE);
 
-                if(response.body()!=null){
+                if (response.body() != null) {
 
-                LoginToken = getSharedPreferences("LoginData",MODE_PRIVATE);
+                    LoginToken = getSharedPreferences("LoginData", MODE_PRIVATE);
 
-                SharedPreferences.Editor myEditor = LoginToken.edit();
+                    SharedPreferences.Editor myEditor = LoginToken.edit();
 
-                myEditor.putString("authtoken",response.body().getAuthToken());
-                myEditor.putString("authname",response.body().getName());
-                myEditor.putString("authemail",response.body().getEmail());
-                myEditor.putString("authid",response.body().getId());
+                    myEditor.putString("authtoken", response.body().getAuthToken());
+                    myEditor.putString("authname", response.body().getName());
+                    myEditor.putString("authemail", response.body().getEmail());
+                    myEditor.putString("authid", response.body().getId());
 
-                if(myEditor.commit())
-                {
-                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
+                    if (myEditor.commit()) {
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
 //                    loginStatus();
 
-                System.out.println("Authtoken "+response.body().getAuthToken());
 
                     msglogin.setText("Login Successful");
 
-                }
-
-                else {
+                } else {
                     loading.setVisibility(View.GONE);
                     findViewById(R.id.loginpage).setVisibility(View.VISIBLE);
                     msglogin.setText("Wrong Credential");
@@ -126,7 +117,7 @@ public class Login extends BaseNavigation {
     }
 
 
-    public void Register(){
+    public void Register() {
 
         findViewById(R.id.registerpage).setVisibility(View.INVISIBLE);
         loading.setVisibility(View.VISIBLE);
@@ -147,35 +138,30 @@ public class Login extends BaseNavigation {
             @Override
             public void onResponse(Call<Users> call, Response<Users> response) {
 
-                if(response.body()!=null){
+                if (response.body() != null) {
 
-                    loading.setVisibility(View.GONE);
-                    findViewById(R.id.registerpage).setVisibility(View.VISIBLE);
+//                    loading.setVisibility(View.GONE);
+//                    findViewById(R.id.registerpage).setVisibility(View.VISIBLE);
 
-                    LoginToken = getSharedPreferences("LoginData",MODE_PRIVATE);
+                    LoginToken = getSharedPreferences("LoginData", MODE_PRIVATE);
 
                     SharedPreferences.Editor myEditor = LoginToken.edit();
 
-                    myEditor.putString("authtoken",response.body().getAuthToken());
-                    myEditor.putString("authname",response.body().getName());
-                    myEditor.putString("authemail",response.body().getEmail());
-                    myEditor.putString("authid",response.body().getId());
+                    myEditor.putString("authtoken", response.body().getAuthToken());
+                    myEditor.putString("authname", response.body().getName());
+                    myEditor.putString("authemail", response.body().getEmail());
+                    myEditor.putString("authid", response.body().getId());
 
-                    if(myEditor.commit())
-                    {
-                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                    if (myEditor.commit()) {
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         finish();
 
                     }
 
-                    System.out.println("Authtoken "+response.body().getEmail());
-
                     msgregister.setText("Registered Successfully");
 
-                }
-
-                else {
+                } else {
                     loading.setVisibility(View.GONE);
                     findViewById(R.id.registerpage).setVisibility(View.VISIBLE);
                     msgregister.setText("User Already Exists");
@@ -186,7 +172,6 @@ public class Login extends BaseNavigation {
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
 
-                System.out.println("Unable to login"+t.toString());
                 loading.setVisibility(View.GONE);
                 findViewById(R.id.registerpage).setVisibility(View.VISIBLE);
 
@@ -211,6 +196,8 @@ public class Login extends BaseNavigation {
 
         findViewById(R.id.registerpage).setVisibility(View.VISIBLE);
 
+        setTitle("Register");
+
 
     }
 
@@ -218,6 +205,7 @@ public class Login extends BaseNavigation {
         findViewById(R.id.loginpage).setVisibility(View.VISIBLE);
 
         findViewById(R.id.registerpage).setVisibility(View.INVISIBLE);
+        setTitle("Login");
     }
 
     public void addUser(View view) {

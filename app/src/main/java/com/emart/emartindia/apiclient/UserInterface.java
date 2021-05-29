@@ -20,26 +20,23 @@ public interface UserInterface {
 //    public Products products = null;
 
     @GET("/api/users/{uid}")
-
-Call<Users> GetOneUser (@Path("pid") String user);
+    Call<Users> GetOneUser(@Path("pid") String user);
 
     @GET("/api/users/")
-    Call<List<Users>> GetAllUser ();
+    Call<List<Users>> GetAllUser();
 
 
     @POST("/api/users/")
-    Call<Users> CreateUser (@Body Users user);
+    Call<Users> CreateUser(@Body Users user);
 
     @PUT("/api/users/profile")
-
-    Call<Users> UpdateUser (@Header("Authorization") String authHeader,@Body Users user);
+    Call<Users> UpdateUser(@Header("Authorization") String authHeader, @Body Users user);
 
     @DELETE("/api/users/{uid}")
-
-    Call<Users> DeleteUser (@Path("pid") String user);
+    Call<Users> DeleteUser(@Path("pid") String user);
 
     @POST("/api/users/login")
-    Call<Users> AuthUser (@Body Users user);
+    Call<Users> AuthUser(@Body Users user);
 
     @GET("/api/users/profile")
     Call<Users> getUserProfile();

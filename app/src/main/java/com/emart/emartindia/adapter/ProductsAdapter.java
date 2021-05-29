@@ -20,27 +20,26 @@ import java.util.ArrayList;
 
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.BrowseViewHolder> {
 
-//    Gson gson = new Gson();
+    //    Gson gson = new Gson();
 //    public static volatile int size=0;
     Context context;
 
     ArrayList<Products> list = new ArrayList<>();
 
 
+    public ProductsAdapter(ArrayList<Products> list) {
 
-    public ProductsAdapter(ArrayList<Products> list){
-
-        this.list=list;
+        this.list = list;
     }
 
 
     @Override
-    public BrowseViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
+    public BrowseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         context = parent.getContext();
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.browsecard,parent,false);
+        View view = inflater.inflate(R.layout.browsecard, parent, false);
 
         return new BrowseViewHolder(view);
     }
@@ -51,16 +50,16 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Browse
         if (context == null) {
             return;
         }
-    Glide.with(context).load(list.get(position).getImage()).into(holder.imgview);
+        Glide.with(context).load(list.get(position).getImage()).into(holder.imgview);
         holder.titleTV.setText(list.get(position).getName());
-        holder.priceTV.setText("₹ "+list.get(position).getPrice());
+        holder.priceTV.setText("₹ " + list.get(position).getPrice());
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent intent = new Intent(context, ProductDetail.class);
-                intent.putExtra("productid",list.get(position).getId());
+                intent.putExtra("productid", list.get(position).getId());
                 context.startActivity(intent);
 
             }
@@ -74,7 +73,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Browse
         return list.size();
     }
 
-    public class BrowseViewHolder extends RecyclerView.ViewHolder{
+    public class BrowseViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imgview;
         TextView titleTV, subsTV, priceTV;

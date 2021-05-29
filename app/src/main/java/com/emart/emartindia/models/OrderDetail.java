@@ -49,7 +49,7 @@ public class OrderDetail {
 
     private String CreatedAt;
 
-    public OrderDetail(){
+    public OrderDetail() {
 
     }
 
