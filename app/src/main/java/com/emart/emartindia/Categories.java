@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
+/*
+ * @author Bipin Singh
+ */
+
 public class Categories extends BaseNavigation {
 
     @Override

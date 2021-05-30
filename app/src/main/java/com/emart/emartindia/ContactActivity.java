@@ -23,6 +23,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+/*
+ * @author Bipin Singh
+ * @author Bibek Kr Sah
+ */
+
+
 public class ContactActivity extends BaseNavigation implements OnMapReadyCallback {
 
     public static final String MAPVIEW_BUNDLE_KEY = "MapViewBundleKey";

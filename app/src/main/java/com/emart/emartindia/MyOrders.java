@@ -1,5 +1,6 @@
 package com.emart.emartindia;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,6 +23,10 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+/*
+ * @author Bipin Singh
+ */
 
 public class MyOrders extends BaseNavigation {
 
@@ -97,5 +102,9 @@ public class MyOrders extends BaseNavigation {
 
 
     public void StartSHopping(View view) {
+
+        Intent intent = new Intent(this, CheckoutSteps.class);
+        startActivity(intent);
+
     }
 }

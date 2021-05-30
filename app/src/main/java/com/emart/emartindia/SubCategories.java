@@ -9,6 +9,10 @@ import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
 
+/*
+ * @author Bipin Singh
+ */
+
 public class SubCategories extends BaseNavigation {
 
 

@@ -28,6 +28,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/*
+ * @author Bipin Singh
+ */
+
 public class ProductDetail extends BaseNavigation {
 
     ImageView imageView;

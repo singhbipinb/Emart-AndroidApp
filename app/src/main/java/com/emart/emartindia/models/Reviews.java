@@ -2,6 +2,10 @@ package com.emart.emartindia.models;
 
 import com.google.gson.annotations.SerializedName;
 
+/*
+ * @author Bipin Singh
+ */
+
 public class Reviews {
 
     @SerializedName("name")

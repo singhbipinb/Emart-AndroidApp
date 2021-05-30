@@ -18,10 +18,12 @@ import com.emart.emartindia.models.Products;
 
 import java.util.ArrayList;
 
+/*
+ * @author Bipin Singh
+ */
+
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.BrowseViewHolder> {
 
-    //    Gson gson = new Gson();
-//    public static volatile int size=0;
     Context context;
 
     ArrayList<Products> list = new ArrayList<>();
@@ -31,7 +33,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Browse
 
         this.list = list;
     }
-
 
     @Override
     public BrowseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

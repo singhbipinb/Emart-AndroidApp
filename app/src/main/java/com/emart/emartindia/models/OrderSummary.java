@@ -3,6 +3,10 @@ package com.emart.emartindia.models;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
+/*
+ * @author Bipin Singh
+ */
+
 public class OrderSummary {
 
     @SerializedName("user")

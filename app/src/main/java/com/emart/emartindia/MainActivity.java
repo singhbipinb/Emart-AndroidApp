@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -21,6 +20,11 @@ import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
 
 import retrofit2.Retrofit;
+
+/*
+ * @author Bipin Singh
+ * @author Bibek Kr Sah
+ */
 
 public class MainActivity extends BaseNavigation {
 
@@ -76,7 +80,33 @@ public class MainActivity extends BaseNavigation {
         CarouselView.setImageClickListener(new ImageClickListener() {
             @Override
             public void onClick(int position) {
-                Toast.makeText(MainActivity.this, CauroselImagesTitle[position], Toast.LENGTH_SHORT).show();
+                switch (position) {
+                    case 0:
+                        Intent intent = new Intent(getApplicationContext(), ProductDetail.class);
+                        intent.putExtra("productid", "607718CE357D423F9C1D3189");
+                        startActivity(intent);
+                        break;
+
+                    case 1:
+                        Intent intent2 = new Intent(getApplicationContext(), Browse.class);
+                        intent2.putExtra("subcategory", "Laptop");
+                        startActivity(intent2);
+                        break;
+
+                    case 2:
+                        Intent intent3 = new Intent(getApplicationContext(), Browse.class);
+                        intent3.putExtra("subcategory", "Home Appliances");
+                        startActivity(intent3);
+                        break;
+
+                    case 3:
+                        Intent intent4 = new Intent(getApplicationContext(), Browse.class);
+                        intent4.putExtra("subcategory", "Smart Wearables");
+                        startActivity(intent4);
+                        break;
+
+
+                }
             }
         });
 

@@ -19,6 +19,10 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * @author Bipin Singh
+ */
+
 public class Cart extends BaseNavigation {
 
 
@@ -145,5 +149,9 @@ public class Cart extends BaseNavigation {
     }
 
     public void StartSHopping(View view) {
+
+        Intent intent = new Intent(this, Categories.class);
+        startActivity(intent);
+
     }
 }

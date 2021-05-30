@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.Arrays;
 
+/*
+ * @author Bipin Singh
+ */
 
 public class OrderDetail {
 
