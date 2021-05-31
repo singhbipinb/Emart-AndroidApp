@@ -126,7 +126,7 @@ public class ContactActivity extends BaseNavigation implements OnMapReadyCallbac
 
 
                 try {
-                    BasicAWSCredentials credentials = new BasicAWSCredentials("AKIA5BBOQKQGX2SIUSGZ", "IS+9EU57wMqLWUxpvw7IJZHfWV5p3fl3M7usXap1");
+                    BasicAWSCredentials credentials = new BasicAWSCredentials("YOUR_ACCESS_KEY", "YOUR_SECRET_KEY");
 
 
                     AmazonSimpleEmailServiceClient sesClient = new AmazonSimpleEmailServiceClient(credentials);
@@ -145,9 +145,9 @@ public class ContactActivity extends BaseNavigation implements OnMapReadyCallbac
                     Content subjectContent = new Content(title);
                     Body messageBody = new Body(new Content(msgbody));
                     Message feedbackMessage = new Message(subjectContent, messageBody);
-                    Destination destination = new Destination().withToAddresses("bipinsingh130100@gmail.com");
+                    Destination destination = new Destination().withToAddresses("RECEIVER_EMAIL");
 
-                    SendEmailRequest request = new SendEmailRequest("bipinsingh130100@gmail.com", destination, feedbackMessage);
+                    SendEmailRequest request = new SendEmailRequest("SENDER_EMAIL", destination, feedbackMessage);
                     final SendEmailResult result = sesClient.sendEmail(request);
 
                     System.out.println("Result " + result);
